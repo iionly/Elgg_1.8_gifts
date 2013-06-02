@@ -8,6 +8,8 @@
  * @author Christian Heckelmann
  * @copyright Christian Heckelmann
  * @link http://www.heckelmann.info
+ *
+ * updated for Elgg 1.8 by iionly (iionly@gmx.de)
  */
 
 $useuserpoints  = elgg_get_plugin_setting('useuserpoints', 'gifts');
@@ -26,14 +28,13 @@ $security = "?__elgg_token=$token&__elgg_ts=$ts";
 <script type="text/javascript">
 function gifts_previewImage(ImageID) {
     ImageID++;
-    var ajaxImage = '<?php echo $vars['url']; ?>mod/gifts/ajaxImage.php?id='+ImageID;
+    var ajaxImage = '<?php echo elgg_get_site_url(); ?>mod/gifts/ajaxImage.php?id='+ImageID;
 
     // Check if Image file is available!!!
     $.ajax({
         url: ajaxImage,
         cache: false,
         success: function(html){
-            //$("#results").append(html);
             $('#gift_preview')[0].innerHTML = html;
         }
     });
@@ -50,7 +51,7 @@ function calculateUserpoints(GiftID,Points) {
     // Calculating Userpoints and display send button when point are enough
     // Else display error message
 
-    var ajaxGetPoints = '<?php echo $vars['url']; ?>mod/gifts/ajaxGetPoints.php?id='+GiftID;
+    var ajaxGetPoints = '<?php echo elgg_get_site_url(); ?>mod/gifts/ajaxGetPoints.php?id='+GiftID;
 
     var Cost = $.ajax({
         url: ajaxGetPoints,
@@ -61,7 +62,7 @@ function calculateUserpoints(GiftID,Points) {
 
     if(Cost <= Points) {
         // Add hidden field with the cost of this gift
-        var code='<input type="hidden" name="giftcost" value="'+Cost+'" /><input class="elgg-button-submit" type="submit" value="<?php echo elgg_echo('gifts:send'); ?>"/>';
+        var code='<input type="hidden" name="giftcost" value="'+Cost+'" /><input class="elgg-button elgg-button-submit" type="submit" value="<?php echo elgg_echo('gifts:send'); ?>"/>';
         $('#gift_cost')[0].innerHTML = '<?php echo elgg_echo('gifts:pointscost'); ?>'+Cost+'<?php echo elgg_echo('gifts:pointscostafter'); ?>';
         $('#sendButton')[0].innerHTML = code;
     } else {
@@ -76,12 +77,12 @@ $(document).ready(function () {
 });
 </script>
 
-<form action="<?php echo $vars['url']; ?>action/gifts/sendgift<?php echo $security; ?>" method="post">
+<form action="<?php echo elgg_get_site_url(); ?>action/gifts/sendgift<?php echo $security; ?>" method="post">
 
 <?php
 
     if($useuserpoints == 1){
-        echo sprintf(elgg_echo("gifts:pointssum"), $points)."<br/>";
+        echo elgg_echo("gifts:pointssum", array($points))."<br/>";
     }
 
     $send_to = get_input('send_to');
@@ -137,9 +138,15 @@ $(document).ready(function () {
 <div id="access">
 <?php
     $access = get_default_access();
-    $out = '<p><label>'.elgg_echo("access").'<br />';
-    $out .= elgg_view("input/access",array('name' => 'access','value'=>$access));
+    $out = '<p><label>'.elgg_echo("gifts:access").'<br />';
+    $out .= elgg_view("input/dropdown",array('name' => 'access',
+                                             'options_values' => array('0'  => elgg_echo('gifts:foureyesaccess'),
+                                                                       '1'  => elgg_echo('LOGGED_IN'),
+                                                                       '2'  => elgg_echo('PUBLIC'),
+                                                                       '-2' => elgg_echo('access:friends:label')),
+                                             'value' => $access));
     $out .= '</label></p>';
+    $out .= elgg_echo("gifts:warning_before_saving") . '<br />';
     echo $out;
 ?>
 </div>

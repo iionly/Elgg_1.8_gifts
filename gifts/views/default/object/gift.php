@@ -8,6 +8,8 @@
  * @author Christian Heckelmann
  * @copyright Christian Heckelmann
  * @link http://www.heckelmann.info
+ *
+ * updated for Elgg 1.8 by iionly (iionly@gmx.de)
  */
 
 // Select Receiver and Sender
@@ -15,11 +17,22 @@ $sender = get_entity($vars['entity']->owner_guid);
 $receiver = get_entity($vars['entity']->receiver);
 $message = $vars['entity']->description;
 
+$sender_link = "<a href=\"{$sender->getURL()}\">{$sender->name}</a>";
+$receiver_link = "<a href=\"{$receiver->getURL()}\">{$receiver->name}</a>";
+
 $gifttext = elgg_get_plugin_setting('gift_'.$vars['entity']->gift_id, 'gifts');
 $imagefile = "gift_".$vars['entity']->gift_id."_default.jpg";
 $imgfile = dirname(dirname(dirname(dirname(__FILE__))))."/images/".$imagefile;
 
 echo elgg_view_title($gifttext);
+
+if (elgg_is_admin_logged_in() || (elgg_get_logged_in_user_guid() == $vars['entity']->owner_guid) || (elgg_get_logged_in_user_guid() == $vars['entity']->receiver)) {
+    echo "<div style='float:right;'>";
+    echo $delete_button = elgg_view("output/confirmlink",array('href' => elgg_get_site_url() . "action/gifts/delete?guid=" . $vars['entity']->guid,
+                                                               'confirm' => elgg_echo('gifts:deleteconfirm'),
+                                                               'class' => 'elgg-icon elgg-icon-delete'));
+    echo "</div>";
+}
 ?>
 
 <div>
@@ -27,9 +40,9 @@ echo elgg_view_title($gifttext);
 <p>
 <?php
     if (file_exists($imgfile)) {
-        echo '<img src="'.$vars['url'].'mod/gifts/images/'.$imagefile.'" /><br/>';
+        echo '<img src="'.elgg_get_site_url().'mod/gifts/images/'.$imagefile.'" /><br/>';
     }
-    echo sprintf(elgg_echo("gifts:object"), $receiver->name, $gifttext, $sender->name);
+    echo elgg_echo("gifts:object", array($receiver_link, $gifttext, $sender_link));
 ?>
 
 </p>
@@ -37,7 +50,7 @@ echo elgg_view_title($gifttext);
     if($message) {
 ?>
     <p>
-        <?php echo elgg_echo('gifts:message'); ?><br/>
+        <label><?php echo elgg_echo('gifts:message'); ?><br/></label>
         <?php echo $message; ?>
     </p>
 <?php

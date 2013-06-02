@@ -8,16 +8,15 @@
  * @author Christian Heckelmann
  * @copyright Christian Heckelmann
  * @link http://www.heckelmann.info
+ *
+ * updated for Elgg 1.8 by iionly (iionly@gmx.de)
  */
 
-// Start engine
-require_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
-
-$gift = get_entity((int)get_input('guid'));
-
-$area2 = elgg_view_title(elgg_echo('gifts:singlegifts'));
-
-$area2 .= elgg_view_entity($gift);
+$area2 = elgg_view_title(elgg_echo('gifts:allgifts'));
+// Show All gifts enabled?
+if(elgg_get_plugin_setting('showallgifts', 'gifts') == 1) {
+    $area2 .= elgg_list_entities(array('type' => 'object', 'subtype' => 'gift'));
+}
 
 elgg_set_context('gifts');
 
@@ -25,4 +24,4 @@ elgg_set_context('gifts');
 $body = elgg_view('page/layouts/one_sidebar', array('content' => $area2));
 
 // Draw it
-echo elgg_view_page(elgg_echo('gifts:singlegifts'), $body);
+echo elgg_view_page(elgg_echo('gifts:allgifts'), $body);

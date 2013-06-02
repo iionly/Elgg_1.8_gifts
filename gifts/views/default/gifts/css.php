@@ -8,6 +8,8 @@
  * @author Christian Heckelmann
  * @copyright Christian Heckelmann
  * @link http://www.heckelmann.info
+ *
+ * updated for Elgg 1.8 by iionly (iionly@gmx.de)
  */
 ?>
 

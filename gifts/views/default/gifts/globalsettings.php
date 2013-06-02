@@ -10,7 +10,7 @@ $giftcount	= $plugin->giftcount;
 $ts = time();
 $token = generate_action_token($ts);
 $security = "?__elgg_token=$token&__elgg_ts=$ts";
-$action = $vars['url'] . 'action/gifts/settings' . $security;
+$action = elgg_get_site_url() . 'action/gifts/settings' . $security;
 
 $form = "<p>".elgg_echo('gifts:settings:showallgifts');
 $form .= '<br/><select name="params[showallgifts]">';

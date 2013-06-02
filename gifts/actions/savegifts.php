@@ -5,11 +5,6 @@
  * Thanks for the Userpoint Api where i got this pice of code from
  */
 
-gatekeeper();
-action_gatekeeper();
-
-global $CONFIG;
-
 $gift_count = get_input('giftcount');
 
 // Params array (text boxes and drop downs)
@@ -18,13 +13,13 @@ $result = false;
 
 foreach ($params as $k => $v) {
     if (!elgg_set_plugin_setting($k, $v, 'gifts')) {
-        register_error(sprintf(elgg_echo('gifts:settings:savefail'), 'userpoints'));
-        forward($_SERVER['HTTP_REFERER']);
+        register_error(elgg_echo('gifts:settings:savefail', array('userpoints')));
+        forward(REFERRER);
     }
 }
 
 // Get Amount of Gifts
-$sender = get_entity(elgg_get_logged_in_user_guid());
+$sender = elgg_get_logged_in_user_entity();
 // File Upload Function
 $ImgDir = dirname(dirname(__FILE__))."/images/";
 
@@ -44,7 +39,6 @@ for ($i=1;$i<=$gift_count;$i++) {
         $filehandler->close();
 
         $thumbtiny = get_resized_image_from_existing_file($filehandler->getFilenameOnFilestore(),25,25, true);
-        //$thumbsmall = get_resized_image_from_existing_file($filehandler->getFilenameOnFilestore(),40,40, true);
         $thumbmedium = get_resized_image_from_existing_file($filehandler->getFilenameOnFilestore(),100,100, true);
         $thumblarge = get_resized_image_from_existing_file($filehandler->getFilenameOnFilestore(),200,200, false);
         $normal = get_resized_image_from_existing_file($filehandler->getFilenameOnFilestore(),999,999, false);
@@ -60,11 +54,6 @@ for ($i=1;$i<=$gift_count;$i++) {
             $thumb->write($thumbtiny);
             $tTiny = $thumb->getFilenameOnFilestore();
             $thumb->close();
-            /*
-            $thumb->setFilename($prefix."small.jpg");
-            $thumb->open("write");
-            $thumb->write($thumbsmall);
-            $thumb->close();*/
 
             $thumb->setFilename($prefix."medium.jpg");
             $thumb->open("write");
@@ -83,10 +72,8 @@ for ($i=1;$i<=$gift_count;$i++) {
             $thumb->write($normal);
             $tDefault = $thumb->getFilenameOnFilestore();
             $thumb->close();
-            //system_message("Saved File $i");
         } // File converted
 
-        //system_message($tmpfilename." ".$ImgDir.$prefix . ".jpg");
         rename($tmpfilename, $ImgDir.$prefix . ".jpg");
         rename($tTiny, $ImgDir.$prefix . "_tiny.jpg");
         rename($tMedium, $ImgDir.$prefix . "_medium.jpg");
@@ -99,4 +86,4 @@ for ($i=1;$i<=$gift_count;$i++) {
 
 system_message(elgg_echo('gifts:settings:saveok'));
 
-forward($_SERVER['HTTP_REFERER']);
+forward(REFERRER);

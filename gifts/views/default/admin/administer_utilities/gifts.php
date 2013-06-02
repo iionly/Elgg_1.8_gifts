@@ -9,9 +9,9 @@
  * @author Christian Heckelmann
  * @copyright Christian Heckelmann
  * @link http://www.heckelmann.info
+ *
+ * updated for Elgg 1.8 by iionly (iionly@gmx.de)
  */
-
-global $CONFIG;
 
 $tab = get_input('tab') ? get_input('tab') : 'globalsettings';
 

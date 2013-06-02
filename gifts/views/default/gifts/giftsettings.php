@@ -10,7 +10,7 @@ $giftcount	= $plugin->giftcount;
 $ts = time();
 $token = generate_action_token($ts);
 $security = "?__elgg_token=$token&__elgg_ts=$ts";
-$action = $vars['url'] . 'action/gifts/savegifts' . $security;
+$action = elgg_get_site_url() . 'action/gifts/savegifts' . $security;
 
 $form = "<input type=\"hidden\" name=\"giftcount\" value=\"$giftcount\" />";
 $gift_count = $giftcount;
@@ -23,15 +23,13 @@ for ($i=1;$i<=$gift_count;$i++) {
         $form .= elgg_view('input/text',array('name'=>'params[giftpoints_'.$i.']','value'=>elgg_get_plugin_setting('giftpoints_'.$i, 'gifts')));
     }
 
-    //elgg_view("input/file",array('name' => 'icon'))
     $form .= elgg_echo('gifts:settings:image')." #$i<br/>";
     $form .= elgg_view('input/file',array('name'=>'giftimage_'.$i));
 
     // Show Image if already uploaded
     $imgfile = dirname(dirname(dirname(dirname(__FILE__))))."/images/gift_".$i.".jpg";
-//     $form .= $imgfile;
     if (file_exists($imgfile)) {
-        $form .= '<img src="'.$vars['url'].'mod/gifts/images/gift_'.$i.'_medium.jpg" /><br/>';
+        $form .= '<img src="'.elgg_get_site_url().'mod/gifts/images/gift_'.$i.'_medium.jpg" /><br/>';
     }
 
 }

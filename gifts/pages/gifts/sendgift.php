@@ -8,19 +8,25 @@
  * @author Christian Heckelmann
  * @copyright Christian Heckelmann
  * @link http://www.heckelmann.info
+ *
+ * updated for Elgg 1.8 by iionly (iionly@gmx.de)
  */
-
-// Load Elgg engine
-include_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
 
 gatekeeper();
 
 $page_owner = elgg_get_page_owner_entity();
 if ($page_owner === false || is_null($page_owner)) {
-  $page_owner = $_SESSION['user'];
+  $page_owner = elgg_get_logged_in_user_entity();
   elgg_set_page_owner_guid($page_owner->getGUID());
 }
-$friends = $_SESSION['user']->getFriends('', 9999);
+$prefix = elgg_get_config('dbprefix');
+$friends = elgg_get_entities_from_relationship(array('relationship' => 'friend',
+                                                     'relationship_guid' => elgg_get_logged_in_user_guid(),
+                                                     'type' => 'user',
+                                                     'limit' => false,
+                                                     'joins' => array("JOIN " . $prefix . "users_entity u ON e.guid=u.guid"),
+                                                     'order_by' => "u.name asc",
+                                                     ));
 
 // set the title
 $title = elgg_echo('gifts:sendgifts');

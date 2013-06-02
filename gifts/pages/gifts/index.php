@@ -8,22 +8,17 @@
  * @author Christian Heckelmann
  * @copyright Christian Heckelmann
  * @link http://www.heckelmann.info
+ *
+ * updated for Elgg 1.8 by iionly (iionly@gmx.de)
  */
-
-// Start engine
-require_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
 
 $area2 = elgg_view_title(elgg_echo('gifts:yourgifts'));
 
 $user_guid = elgg_get_logged_in_user_guid();
 
-$ogifts = elgg_get_entities(array('type' => 'object', 'subtype' => 'gift', 'limit' => 999));
+$access = elgg_set_ignore_access(true);
 
-foreach($ogifts as $gift) {
-    if($gift->receiver == $user_guid) {
-        $area2 .= elgg_view_entity($gift);
-    }
-}
+$area2 .= elgg_list_entities_from_metadata(array('type' => 'object', 'subtype' => 'gift', 'metadata_name_value_pair' => array('name' => 'receiver', 'value' => $user_guid, 'operand' => '=')));
 
 elgg_set_context('gifts');
 
@@ -32,3 +27,5 @@ $body = elgg_view('page/layouts/one_sidebar', array('content' => $area2));
 
 // Draw it
 echo elgg_view_page(elgg_echo('gifts:yourgifts'), $body);
+
+elgg_set_ignore_access($access);
