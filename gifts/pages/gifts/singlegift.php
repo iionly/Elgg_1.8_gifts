@@ -20,7 +20,7 @@ $gift = get_entity($gift_guid);
 
 if ($gift->getSubtype() != 'gift') {
     elgg_set_ignore_access($access);
-    forward(REFERRER);
+    forward(REFERER);
 } else if (elgg_get_logged_in_user_guid() == $gift->receiver) {
 
     $area2 = elgg_view_title(elgg_echo('gifts:singlegifts'));

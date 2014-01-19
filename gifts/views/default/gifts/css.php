@@ -28,9 +28,9 @@ padding:0;
     margin:0 10px 5px 10px;
     padding:5px;
     min-height:35px;
-    border-radius: 8px;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
+    border-radius: 8px;
 }
 .gifts_widget_icon {
     float: left;

@@ -22,7 +22,7 @@ elgg_register_event_handler('init', 'system', 'gifts_init');
 function gifts_init() {
 
     // Set Plugin Version for Update Checks
-    elgg_set_plugin_setting('version', '1.8.1', 'gifts');
+    elgg_set_plugin_setting('version', '1.8.2', 'gifts');
 
     // Show in Menu
     if (elgg_is_logged_in()) {
@@ -76,8 +76,8 @@ function gifts_init() {
 
     // Register actions
     $base_dir = elgg_get_plugins_path() . 'gifts/actions';
-    elgg_register_action("gifts/settings", "$base_dir/savesettings.php", 'logged_in');
-    elgg_register_action("gifts/savegifts", "$base_dir/savegifts.php", 'logged_in');
+    elgg_register_action("gifts/settings", "$base_dir/savesettings.php", 'admin');
+    elgg_register_action("gifts/savegifts", "$base_dir/savegifts.php", 'admin');
     elgg_register_action("gifts/sendgift", "$base_dir/send.php", 'logged_in');
     elgg_register_action("gifts/delete", "$base_dir/delete.php", 'logged_in');
 

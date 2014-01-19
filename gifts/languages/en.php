@@ -39,6 +39,9 @@ $english = array(
 'gift:delete:success' => "The gift was deleted successfully.",
 'gifts:deleteconfirm' => "Are you sure you want to delete this gift? It will be unrecoverable lost both for the donor and the presentee.",
 
+'gifts:sender_fallback' => 'a former member',
+'gifts:receiver_fallback' => 'A former member',
+
 'gifts:widget' => "Gifts",
 'gifts:widget:num_display' => "Number of gifts",
 'gifts:widget:description' => "Show your received gifts.",

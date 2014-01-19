@@ -40,6 +40,9 @@ $german = array(
 'gift:delete:success' => "Das Geschenk wurde gelöscht.",
 'gifts:deleteconfirm' => "Bist Du sicher, dass Du dieses Geschenk löschen willst? Es wird dann sowohl für den Schenker als auch für den Beschenkten unwiederbringlich weg sein.",
 
+'gifts:sender_fallback' => 'einem früheren Mitglied',
+'gifts:receiver_fallback' => 'Ein früheres Mitglied',
+
 'gifts:widget' => "Geschenke",
 'gifts:widget:num_display' => "Anzahl der anzuzeigenden Geschenke",
 'gifts:widget:description' => "Zeige die Geschenke, die Du erhalten hast.",
