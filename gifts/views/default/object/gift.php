@@ -37,9 +37,11 @@ echo elgg_view_title($gifttext);
 
 if (elgg_is_admin_logged_in() || (elgg_get_logged_in_user_guid() == $vars['entity']->owner_guid) || (elgg_get_logged_in_user_guid() == $vars['entity']->receiver)) {
 	echo "<div style='float:right;'>";
-	echo $delete_button = elgg_view("output/confirmlink",array('href' => elgg_get_site_url() . "action/gifts/delete?guid=" . $vars['entity']->guid,
-																'confirm' => elgg_echo('gifts:deleteconfirm'),
-																'class' => 'elgg-icon elgg-icon-delete'));
+	echo $delete_button = elgg_view("output/confirmlink",array(
+		'href' => elgg_get_site_url() . "action/gifts/delete?guid=" . $vars['entity']->guid,
+		'confirm' => elgg_echo('gifts:deleteconfirm'),
+		'class' => 'elgg-icon elgg-icon-delete'
+	));
 	echo "</div>";
 }
 ?>

@@ -14,40 +14,40 @@
 ?>
 
 .user_menu_gift {
-margin:0;
-padding:0;
+	margin:0;
+	padding:0;
 }
 
-#gift_preview {
 /* Container for Gift Preview Image */
+#gift_preview {
 }
 
 /* Gifts Widget */
 .gifts_widget_wrapper {
-    background-color: white;
-    margin:0 10px 5px 10px;
-    padding:5px;
-    min-height:35px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
+	background-color: white;
+	margin:0 10px 5px 10px;
+	padding:5px;
+	min-height:35px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
 }
 .gifts_widget_icon {
-    float: left;
-    margin-right: 10px;
+	float: left;
+	margin-right: 10px;
 }
 .gifts_timestamp {
-    color:#666666;
-    margin:0;
+	color:#666666;
+	margin:0;
 }
 .gifts_desc {
-    display:none;
-    line-height: 1.2em;
+	display:none;
+	line-height: 1.2em;
 }
 .gifts_widget_content {
-    margin-left: 35px;
+	margin-left: 35px;
 }
 .gifts_title {
-    margin:0;
-    line-height: 1.2em;
+	margin:0;
+	line-height: 1.2em;
 }

@@ -14,16 +14,24 @@
 
 // Show your sent gifts
 
-$area2 = elgg_view_title(elgg_echo('gifts:sent'));
+elgg_push_breadcrumb(elgg_echo('gifts:menu'), 'gifts/' . elgg_get_logged_in_user_entity()->username. '/index');
+$title = elgg_echo('gifts:sent');
+elgg_push_breadcrumb($title);
 
 $user_guid = elgg_get_logged_in_user_guid();
 
-$area2 .= elgg_list_entities(array('type' => 'object', 'subtype' => 'gift', 'owner_guid' => $user_guid));
+$result = elgg_list_entities(array('type' => 'object', 'subtype' => 'gift', 'owner_guid' => $user_guid));
+
+if (!empty($result)) {
+	$area2 = $result;
+} else {
+	$area2 = elgg_echo('gifts:nogifts');
+}
 
 elgg_set_context('gifts');
 
 // Format page
-$body = elgg_view('page/layouts/one_sidebar', array('content' => $area2));
+$body = elgg_view_layout('content', array('content' => $area2, 'filter' => '', 'title' => $title));
 
 // Draw it
-echo elgg_view_page(elgg_echo('gifts:yourgifts'), $body);
+echo elgg_view_page($title, $body);

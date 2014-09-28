@@ -24,22 +24,22 @@ $sender_guid = elgg_get_logged_in_user_guid();
 
 // No Friend selected?
 if (empty($receiver) || empty($gift_id)) {
-    register_error(elgg_echo("gifts:blank"));
-    forward("gifts/".$sender->name."/sendgift");
+	register_error(elgg_echo("gifts:blank"));
+	forward("gifts/".$sender->name."/sendgift");
 }
 
 // Userpoints
 $useuserpoints  = elgg_get_plugin_setting('useuserpoints', 'gifts');
 if($useuserpoints == 1 && function_exists('userpoints_subtract')) {
-    $pTemp = userpoints_get($sender_guid);
-    $points = $pTemp['approved'];
+	$pTemp = userpoints_get($sender_guid);
+	$points = $pTemp['approved'];
 
-    // Set new Point Value
-    if(userpoints_subtract($sender_guid, $cost, 'gifts')) {
-        system_message(elgg_echo('gifts:pointsuccess'));
-    }else{
-        system_message(elgg_echo('gifts:pointfail'));
-    }
+	// Set new Point Value
+	if(userpoints_subtract($sender_guid, $cost, 'gifts')) {
+		system_message(elgg_echo('gifts:pointsuccess'));
+	} else {
+		system_message(elgg_echo('gifts:pointfail'));
+	}
 }
 
 // create a gifts object
@@ -60,13 +60,15 @@ $sender = $sender;
 $msgto = get_entity($receiver);
 
 // send mail notification
-notify_user($msgto->getGUID(), $sender->getGUID(), elgg_echo('gifts:mail:subject'),
-            elgg_echo('gifts:mail:body', array($sender->name, elgg_get_site_url() . "gifts/" . $msgto->username . "/index"))
+notify_user($msgto->getGUID(),
+	$sender->getGUID(),
+	elgg_echo('gifts:mail:subject'),
+	elgg_echo('gifts:mail:body', array($sender->name, elgg_get_site_url() . "gifts/" . $msgto->username . "/index"))
 );
 
 // Add to river
 if ((elgg_get_plugin_setting('showallgifts', 'gifts') == 1) && ($access != ACCESS_PRIVATE)) {
-    add_to_river('river/object/gifts/create_new','gifts',$gift->owner_guid,$gift->getGUID());
+	add_to_river('river/object/gifts/create_new','gifts',$gift->owner_guid,$gift->getGUID());
 }
 system_message(elgg_echo('gifts:sendok'));
 // display gift

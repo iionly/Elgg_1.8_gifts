@@ -7,7 +7,7 @@ $GiftID = get_input('id');
 $points = elgg_get_plugin_setting('giftpoints_'.$GiftID, 'gifts');
 
 if($points == "") {
-    echo 0;
+	echo 0;
 } else {
-    echo $points;
+	echo $points;
 }

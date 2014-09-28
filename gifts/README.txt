@@ -1,6 +1,6 @@
 Elgg Gifts Plugin
-Latest Version: 1.8.2
-Released: 2014-01-19
+Latest Version: 1.8.3
+Released: 2014-09-28
 Contact: iionly@gmx.de
 License: GNU General Public License version 2
 Copyright: (c) iionly, Galdrapiu, Christian Heckelmann
@@ -28,6 +28,13 @@ The default setting of suhosin.upload.max_uploads in suhosin.ini is 25. These pa
 
 
 Changelog:
+
+v1.8.3 2014-09-28 (by iionly)
+    + Layout rework of gift pages (especially adding of breadcrumps and changing title section) to better blend in with the other Elgg pages,
+    + "No gifts found." text output if no gifts were found in the context of the pages / widgets,
+    + Fix of deprecation issues and replacement of private Elgg API functions if possible,
+    + Some general code cleanup.
+
 
 v1.8.2 2014-01-19 (by iionly)
     + catch the situation when gift entries sent or received by deleted users are to be displayed on the gift plugin's pages, the activity page or within gift widgets.

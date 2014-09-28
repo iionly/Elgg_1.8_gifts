@@ -10,10 +10,10 @@ $params = get_input('params');
 $result = false;
 
 foreach ($params as $k => $v) {
-    if (!elgg_set_plugin_setting($k, $v, 'gifts')) {
-        register_error(elgg_echo('gifts:settings:savefail', array('userpoints')));
-        forward(REFERRER);
-    }
+	if (!elgg_set_plugin_setting($k, $v, 'gifts')) {
+		register_error(elgg_echo('gifts:settings:savefail', array('userpoints')));
+		forward(REFERRER);
+	}
 }
 
 system_message(elgg_echo('gifts:settings:saveok'));
